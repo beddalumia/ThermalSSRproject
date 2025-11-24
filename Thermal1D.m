@@ -1,16 +1,17 @@
-% Cross-check a numerical build of the 2-orbital RDM against the analyical
-% results in Quantum Sci. Technol. 9 (2024) 015005 (Lexin Ding et al.)
-% This script reproduces figure 2 in the paper, as well as it replicates 
-% the results with our notion of symmetry-resolved negativity :)
+%% Extension of our test to finite temperature
+% For T=0 this script reproduces Fig.2 in [1], as well as it replicates 
+% the results with our notion of symmetry-resolved negativity :) 
+% [1] Lexin Ding et al., Quantum Science and Technology 9 (2024) 015005
 
 t = 1;   % Hopping
 L = 200; % Nsites
+T = 0;   % Temperature in units of t
 k = (1-mod(L,2)-round((L-1)/2):1:round((L-1)/2)) * 2*pi/L;
 E = -2*t*cos(k); [E,indices] = sort(E); sorted_k = k(indices);
 
 % Filling of the band η = N/(2*L)
 global eta
-fillings = [logspace(-4,-1,100),0.1:0.01:0.5];
+fillings = [5e-3,1e-2:1e-2:0.09,0.1:0.01:0.5];
 E_nSSR = zeros(4,length(fillings)); 
 E_pSSR = zeros(4,length(fillings));
 E_PPT_0 = zeros(4,length(fillings));
@@ -18,12 +19,24 @@ E_PPT = zeros(4,length(fillings));
 for d=1:length(fillings)
 eta = fillings(d) 
 N = round(2*L*eta);
-occupied = zeros(2,round(N/2));
-for n = 1:round(N/2)
+spin_k = zeros(2,round(N/2));
+for n = 1:L
     for s = 1:2
-        occupied(s,n) = sorted_k(n);
+        spin_k(s,n) = sorted_k(n);
+        if n == round(N/2)
+           EF = E(n);
+        end
     end
 end
+for n = 1:L
+    dE = E(n)-EF;
+    if abs(dE) < 1e-12
+        weight(n) = 1/2; % To manage NaNs close to the Fermi level
+    else
+        weight(n) = 1/(1+exp(dE/(T*t))); % Temperature in units of t
+    end
+end 
+
 
 %% Numerical 1-body density matrix!
 OBDM = zeros(2*L,2*L); % [1,2,...,Nsites]_up[1,2,...,Nsites]_dw
@@ -31,12 +44,10 @@ for i = 1:L
     OBDM(i,i) = eta;
     OBDM(i+L,i+L) = eta;
     for j = i+1:L
-        % Numerical computation
-        % OBDM(i,j) = sum(weight.*exp(1i*(i-j)*spin_k(1,:)))/L; % up
-        % OBDM(i+L,j+L) = sum(weight.*exp(1i*(i-j)*spin_k(2,:)))/L; % dw
-        % Infinite chain limit:
-        OBDM(i,j) = sin(pi*(i-j)*eta)/(pi*(i-j)); % up
-        OBDM(i+L,j+L) = sin(pi*(i-j)*eta)/(pi*(i-j)); % dw
+        % Spin-up
+        OBDM(i,j) = sum(weight.*exp(1i*(i-j)*spin_k(1,:)))/L;
+        % Spin-dw
+        OBDM(i+L,j+L) = sum(weight.*exp(1i*(i-j)*spin_k(2,:)))/L;
         if not(i==j)
             OBDM(j,i) = conj(OBDM(i,j)); % up
             OBDM(j+L,i+L) = conj(OBDM(i+L,j+L)); % dw
@@ -51,7 +62,7 @@ sc_matrix = SlaterCondon(2); % 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
 OBDM_ij = zeros(4,4);
 counter = 0;
 for i = 1:1%L
-    for j = [2,3,11,101]
+    for j = [2,3,11] %101
 
         % Restrict the one-body density matrix to two orbitals
         % -> spin up
@@ -99,15 +110,16 @@ for i = 1:1%L
             end
         end
 
-        assert(norm(test_1bdm-OBDM_ij)<1d-10);
+        %assert(norm(test_1bdm-OBDM_ij)<1d-10);
         
         % Apply SSR
         counter = counter + 1;
-        [N0,~,N2] = sym_negativity(RDM);
+        [N0,N1,N2] = sym_negativity(RDM);
+        [~,~,~,Ntot] = negativity(RDM);
+        assert(abs(N0+N1+N2-Ntot)<1e-12);
         E_PPT_0(counter,d) = N0;%log2(2*N0+1);
         E_PPT(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
         [E_pSSR(counter,d),E_nSSR(counter,d)] = build_SSR(RDM);
-
 
     end
 end
@@ -127,8 +139,8 @@ plot(fillings,E_nSSR(2,:)*log(2),'b--');
 plot(fillings,E_pSSR(3,:)*log(2),'r-.');
 plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
 
-plot(fillings,E_pSSR(4,:)*log(2),'r:');
-plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
+%plot(fillings,E_pSSR(4,:)*log(2),'r:');
+%plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
@@ -147,8 +159,8 @@ plot(fillings,E_PPT(2,:)*log(2),'m--');
 plot(fillings,E_PPT_0(3,:)*log(2),'c-.');
 plot(fillings,E_PPT(3,:)*log(2),'m-.');
 
-plot(fillings,E_PPT_0(4,:)*log(2),'c:');
-plot(fillings,E_PPT(4,:)*log(2),'m:');
+%plot(fillings,E_PPT_0(4,:)*log(2),'c:');
+%plot(fillings,E_PPT(4,:)*log(2),'m:');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')

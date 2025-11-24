@@ -18,16 +18,15 @@ function [E,F,N,M] = negativity(RDMij)
     % Get the eigenvalues
     p = eig(TiRDM);
     % Test for negativity
-    N = -sum(p(p<0));
-    N_= (trace(sqrtm(TiRDM'*TiRDM))-1)/2;
+    N_ = -sum(p(p<0));
+    N  = (sum(svd(TiRDM))-1)/2;
     if(abs(N-N_)>1e-8);
         warning('Negativity definitions mismatch: %g vs %g', N, N_);
     end
     p = eig(FiRDM);
     % Test for twisted vs untwisted negativity
-    M = -sum(p(p<0)) + (trace(FiRDM) - 1)/2;
-    %M_ = (trace(sqrtm(FiRDM'*FiRDM))-1)/2;
-    M_ = (sum(svd(FiRDM))-1)/2;
+    M_ = -sum(p(p<0)) + (trace(FiRDM) - 1)/2;
+    M  = (sum(svd(FiRDM))-1)/2;
         if(abs(M-M_)>1e-8);
         warning('Negativity definitions (Fermionic) mismatch: %g vs %g', M, M_);
     end
