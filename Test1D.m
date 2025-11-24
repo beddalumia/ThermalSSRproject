@@ -113,8 +113,8 @@ for i = 1:1%L
         % Apply SSR
         counter = counter + 1;
         [N0,~,N2] = sym_negativity(RDM);
-        E_PPT_0(counter,d) = log2(2*N0+1);
-        E_PPT(counter,d) = log2(2*(N0+N2)+1);
+        E_PPT_0(counter,d) = N0;%log2(2*N0+1);
+        E_PPT(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
         [E_pSSR(counter,d),E_nSSR(counter,d)] = build_SSR(RDM);
 
 
@@ -123,30 +123,46 @@ end
 
 end
 
+tiledlayout(1, 2);
+
+nexttile
+
 plot(fillings,E_pSSR(1,:)*log(2),'r-'); hold on
 plot(fillings,E_nSSR(1,:)*log(2),'b-');
-plot(fillings,E_PPT_0(1,:)*log(2),'c-');
-plot(fillings,E_PPT(1,:)*log(2),'m-');
 
 plot(fillings,E_pSSR(2,:)*log(2),'r--');
 plot(fillings,E_nSSR(2,:)*log(2),'b--');
-plot(fillings,E_PPT_0(2,:)*log(2),'c--');
-plot(fillings,E_PPT(2,:)*log(2),'m--');
 
 plot(fillings,E_pSSR(3,:)*log(2),'r-.');
 plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
-plot(fillings,E_PPT_0(3,:)*log(2),'c-.');
-plot(fillings,E_PPT(3,:)*log(2),'m-.');
 
 plot(fillings,E_pSSR(4,:)*log(2),'r:');
 plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$\eta$",'Interpreter','latex')
+ylabel("$\mathcal{E}$",'Interpreter','latex')
+
+nexttile
+
+plot(fillings,E_PPT_0(1,:)*log(2),'c-'); hold on
+plot(fillings,E_PPT(1,:)*log(2),'m-');
+
+plot(fillings,E_PPT_0(2,:)*log(2),'c--');
+plot(fillings,E_PPT(2,:)*log(2),'m--');
+
+plot(fillings,E_PPT_0(3,:)*log(2),'c-.');
+plot(fillings,E_PPT(3,:)*log(2),'m-.');
+
 plot(fillings,E_PPT_0(4,:)*log(2),'c:');
 plot(fillings,E_PPT(4,:)*log(2),'m:');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
-xlim([1e-4,0.5]);
+xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$\eta$",'Interpreter','latex')
-ylabel("$E$",'Interpreter','latex')
+ylabel("$\mathcal{N}$",'Interpreter','latex')
 
 print_basis
