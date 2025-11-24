@@ -52,7 +52,7 @@ function [E_pSSR,E_nSSR] = build_SSR(RDM)
     q(1) = p(1) + (p(6)+p(11)-q(6)-q(11))/2;
     q(16) = p(16) + (p(6)+p(11)-q(6)-q(11))/2;
     % Global singlet assertion
-    if all(abs(RDM(4,4)-RDM(13,13))<1e-12)
+    if all(abs(RDM(4,4)-RDM(13,13))<1e-25)
         %% N-SSR computation, assuming global singlet
         t = p(7);
         r = p(10) + p(4) + p(13);
@@ -71,7 +71,7 @@ function [E_pSSR,E_nSSR] = build_SSR(RDM)
         end
     end
     % Particle-hole symmetry assertion
-    if all(abs(RDM(1,1)-RDM(16,16))<1e-4)
+    if all(abs(RDM(1,1)-RDM(16,16))<1e-25)
         %% P-SSR computation, assuming particle-hole symmetry
         T = p(6);
         R = p(11) + p(1) + p(16);
