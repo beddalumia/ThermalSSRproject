@@ -110,7 +110,7 @@ for i = 1:1%L
             end
         end
 
-        %assert(norm(test_1bdm-OBDM_ij)<1d-10);
+        assert(norm(test_1bdm-OBDM_ij)<1d-10);
         
         % Apply SSR
         counter = counter + 1;
