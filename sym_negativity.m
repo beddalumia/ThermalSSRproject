@@ -1,4 +1,4 @@
-%% Compute imbalance-resolved negativity for a two-orbital RDM in usual EDIPACK ordering
+%% Compute imbalance-resolved negativity for a two-orbital RDM in usual EDIpack ordering
 %
 %   >> [N0,N1,N2] = sym_negativity(RDMij)
 %
@@ -53,7 +53,12 @@ function [N0,N1,N2] = sym_negativity(RDMij)
     
     % > Let's leverage the additivity of negativities!
     [FT, BT] = partial_transpose(RDMij);
-    Ntot = 0.5*(trace(sqrtm(FT'*FT))-1);
+    [~, FF] = partial_transpose_frederic(RDMij);
+    Ntot = 0.5*(sum(svd(FT))-1);
+    Ftot = 0.5*(sum(svd(FF))-1);
+    if abs(Ntot - Ftot) > 1e-12
+       error("Frederic's partial transpose differs from ours!");
+    end
     Ntot_bosonic = 0.5*(trace(sqrtm(BT'*BT))-1);
     if abs(Ntot_bosonic - Ntot) < 1e-12
        warning("You might want to investigate why bosonic and fermionic PPT coincide");
@@ -64,10 +69,12 @@ end
  
 
 
+% Cross-check
+function [Ti_RDM_ij, Fi_RDM_ij] = partial_transpose_frederic(RDM_ij)
+%  Partial transpose of a two-site RDM with respect to the first site
+%  directly transpiled from Frederic Bippus' implementation in Julia.
+%  © Frederic Bippus, Gabriele Bellomia, 2025
 
-
- %% Full partial transpose on the "left" single site
- function [Ti_RDM_ij, Fi_RDM_ij] = partial_transpose_frederic(RDM_ij)
     % HARDCODED MAGIC NUMBERS (we have a simple dimer)
     Nlat = 2;
     Norb = 1;
@@ -161,6 +168,6 @@ end
         0 0 0 0 Ti_RDM_ij(8,11) 0 0 0 0 0 0 0 0 Ti_RDM_ij(14,14) 0 0;...
         0 0 0 Ti_RDM_ij(9,11) 0 0 0 0 0 0 0 0 0 0 Ti_RDM_ij(15,15) 0;...
         Ti_RDM_ij(11,6) 0 0 0 0 0 Ti_RDM_ij(12,14) 0 0 Ti_RDM_ij(13,15) 0 0 0 0 0 Ti_RDM_ij(16,16)];
- end
+end
 
  
