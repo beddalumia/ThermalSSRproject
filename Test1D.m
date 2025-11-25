@@ -14,7 +14,7 @@ fillings = [logspace(-4,-1,100),0.1:0.01:0.5];
 E_nSSR = zeros(4,length(fillings)); 
 E_pSSR = zeros(4,length(fillings));
 E_PPT_0 = zeros(4,length(fillings));
-E_PPT = zeros(4,length(fillings));
+E_PPT_2 = zeros(4,length(fillings));
 for d=1:length(fillings)
 eta = fillings(d) 
 N = round(2*L*eta);
@@ -105,7 +105,7 @@ for i = 1:1%L
         counter = counter + 1;
         [N0,~,N2] = sym_negativity(RDM);
         E_PPT_0(counter,d) = N0;%log2(2*N0+1);
-        E_PPT(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
+        E_PPT_2(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
         [E_pSSR(counter,d),E_nSSR(counter,d)] = build_SSR(RDM);
 
 
@@ -113,6 +113,8 @@ for i = 1:1%L
 end
 
 end
+
+figure("Position",[100 100 800 400])
 
 tiledlayout(1, 2);
 
@@ -124,36 +126,38 @@ plot(fillings,E_nSSR(1,:)*log(2),'b-');
 plot(fillings,E_pSSR(2,:)*log(2),'r--');
 plot(fillings,E_nSSR(2,:)*log(2),'b--');
 
-plot(fillings,E_pSSR(3,:)*log(2),'r-.');
-plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
+% plot(fillings,E_pSSR(3,:)*log(2),'r-.');
+% plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
 
-plot(fillings,E_pSSR(4,:)*log(2),'r:');
-plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
+% plot(fillings,E_pSSR(4,:)*log(2),'r:');
+% plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
-xlim([1e-4,0.5]); ylim([0,0.11]);
+xlim([0,0.5]); ylim([0,0.16]);
 xlabel("$\eta$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
 
 nexttile
 
-plot(fillings,E_PPT_0(1,:)*log(2),'c-'); hold on
-plot(fillings,E_PPT(1,:)*log(2),'m-');
+plot(fillings,E_PPT_2(1,:),'m-'); hold on
+plot(fillings,E_PPT_0(1,:),'c-');
 
-plot(fillings,E_PPT_0(2,:)*log(2),'c--');
-plot(fillings,E_PPT(2,:)*log(2),'m--');
+plot(fillings,E_PPT_2(2,:),'m--');
+plot(fillings,E_PPT_0(2,:),'c--');
 
-plot(fillings,E_PPT_0(3,:)*log(2),'c-.');
-plot(fillings,E_PPT(3,:)*log(2),'m-.');
+% plot(fillings,E_PPT_2(3,:),'m-.');
+% plot(fillings,E_PPT_0(3,:),'c-.');
 
-plot(fillings,E_PPT_0(4,:)*log(2),'c:');
-plot(fillings,E_PPT(4,:)*log(2),'m:');
+% plot(fillings,E_PPT_2(4,:),'m:');
+% plot(fillings,E_PPT_0(4,:),'c:');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
-xlim([1e-4,0.5]); ylim([0,0.11]);
+xlim([0,0.5]); ylim([0,0.16]);
 xlabel("$\eta$",'Interpreter','latex')
 ylabel("$\mathcal{N}$",'Interpreter','latex')
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
 
 print_basis
