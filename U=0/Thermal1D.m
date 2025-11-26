@@ -88,39 +88,9 @@ for d=1:length(fillings)
                 %  disp(sum(eig(OBDM_ij)))
                 %  disp ********************
 
-                % Entanglement Hamiltonian (Peshel-Cheong theorem)
-                % H = (logm((1-OBDM_ij)/OBDM_ij))'; % Native matrix log not really working
-                [V,G] = eig(OBDM_ij,"vector");
-                D = log((1-G)./G);
-                H = V*diag(D)*V^(-1); H = H';
-
-                % Many-Body representation of the Entanglement Hamiltonian
-                mbH = zeros(16,16);
-                % ∑_s ∑_ij <istate| H_ij cdg_is c_js |jstate>
-                for ispin=1:2
-                    for ilat=1:2
-                        for jlat=1:2
-                            % <istate| H_ij cdg_is c_js |jstate> = H_ij * <istate| cdg_is c_js |jstate>
-                            mbH(:,:) = H(ilat+(ispin-1)*2,jlat+(ispin-1)*2) * squeeze(sc_matrix(ilat+(ispin-1)*2,jlat+(ispin-1)*2,:,:)) + mbH(:,:);
-                        end
-                    end
-                end
-
-                % Reduced density matrix from maby-body EH
-                RDM = expm(-mbH); RDM = RDM ./ trace(RDM); 
-
-                % Assert Slater-Condon rules
-                test_1bdm = zeros(4,4);
-
-                for n = 1:4
-                    for m = 1:4
-                        test_1bdm(n,m) = trace(RDM * squeeze(sc_matrix(n,m,:,:)));
-                    end
-                end
-
-                assert(norm(test_1bdm-OBDM_ij)<1d-10);
+                RDM = RDM0(OBDM_ij,2,sc_matrix);
                 
-                % Apply SSR
+                %% Apply SSR and measure entanglement
                 counter = counter + 1;
                 [N0,N1,N2] = sym_negativity(RDM);
                 [~,~,~,Ntot] = negativity(RDM);
