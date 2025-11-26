@@ -98,7 +98,7 @@ for d=1:length(fillings)
                 E_PPT_0(counter,d,b) = N0;%log2(2*N0+1);
                 E_PPT_2(counter,d,b) = N0+N2;%log2(2*(N0+N2)+1);
                 E_PPT(counter,d,b) = Ntot;
-                [E_pSSR(counter,d,b),E_nSSR(counter,d,b)] = build_SSR(RDM);
+                [E_pSSR(counter,d,b),E_nSSR(counter,d,b)] = ssr_ree(RDM);
 
             end
         end

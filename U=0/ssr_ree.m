@@ -1,4 +1,4 @@
-function [E_pSSR,E_nSSR] = build_SSR(RDM)
+function [E_pSSR,E_nSSR] = ssr_ree(RDM)
     % Trim all off-diagonals
     nRDM = diag(diag(RDM));
     % Restore the spin-flip terms

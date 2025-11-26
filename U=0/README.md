@@ -32,7 +32,7 @@ We implement the superselection of the two-site negativity in `ssr_negativity`, 
 
 #### Superselected relative entropies
 
-We provide, for benchmark, implementations of the superselected relative entropy of entanglement, as introduced in [4]
+We provide, for benchmark, implementations of the superselected relative entropy of entanglement, as introduced in [4]. They are computed in `ssr_ree`.
 
 
 

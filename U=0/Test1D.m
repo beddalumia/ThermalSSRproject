@@ -76,7 +76,7 @@ for i = 1:1%L
         [N0,~,N2] = sym_negativity(RDM);
         E_PPT_0(counter,d) = N0;%log2(2*N0+1);
         E_PPT_2(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
-        [E_pSSR(counter,d),E_nSSR(counter,d)] = build_SSR(RDM);
+        [E_pSSR(counter,d),E_nSSR(counter,d)] = ssr_ree(RDM);
 
 
     end
