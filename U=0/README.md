@@ -19,7 +19,7 @@ $$
 
 where $\tilde{H}_\mathrm{E}$ is the many-body representation of the single
 body operator $H_\mathrm{E}$. To evaluate in an efficient way this, we precompute the Slater-Condon overlaps (single-body excitations between all
-the given Fock states) with the included `SlaterCondon` function.
+the given Fock states) with the included `slater_condon` function.
 
 Overall, the Peschel-Chung-Eisler formulation is known to be very efficient
 for computing reduced density matrices for small-enough subsystems, whereas it introduced nontrivial numerical issues for large ones (the $G$ matrix becomes singular, as all eigenvalues become very close to either $1$ or $0$) [3]. As we are interested in two-site RDMs, the issue does not touch us at all, leading to a reliable, semi-analytical treatment of the noninteracting models.

@@ -7,7 +7,7 @@ function RDM = RDM0(OBDM,N,SCOT)
 %     - N is the number of given fermionic modes (orbitals, sites)
 %     - SCOT is a precomputed Slater-Condon overlap tensor [2N,2N,4^N,4^N]
 %
-% See also SlaterCondon
+% See also slater_condon
 %
 % © Gabriele Bellomia, 2025
 

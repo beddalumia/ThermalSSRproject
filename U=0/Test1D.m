@@ -45,7 +45,7 @@ for i = 1:L
 end
 
 % pre-compute Slater-Condon rules for 2 orbitals
-sc_matrix = SlaterCondon(2); % 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
+sc_matrix = slater_condon(2); % 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
 
 %% Build two-orbital RDMs
 OBDM_ij = zeros(4,4);
