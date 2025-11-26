@@ -13,8 +13,8 @@ global eta
 fillings = [logspace(-4,-1,100),0.1:0.01:0.5];
 E_nSSR = zeros(4,length(fillings)); 
 E_pSSR = zeros(4,length(fillings));
-E_PPT_0 = zeros(4,length(fillings));
-E_PPT_2 = zeros(4,length(fillings));
+E_PPT_n = zeros(4,length(fillings));
+E_PPT_p = zeros(4,length(fillings));
 for d=1:length(fillings)
 eta = fillings(d) 
 N = round(2*L*eta);
@@ -73,9 +73,9 @@ for i = 1:1%L
         
         %% Apply SSR and measure entanglement
         counter = counter + 1;
-        [N0,~,N2] = sym_negativity(RDM);
-        E_PPT_0(counter,d) = log2(2*N0+1);
-        E_PPT_2(counter,d) = log2(2*(N0+N2)+1);
+        [Nn,Np] = ssr_negativity(RDM);
+        E_PPT_n(counter,d) = log2(2*Nn+1);
+        E_PPT_p(counter,d) = log2(2*Np+1);
         [E_pSSR(counter,d),E_nSSR(counter,d)] = ssr_ree(RDM);
 
 
@@ -112,17 +112,17 @@ legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest
 
 nexttile
 
-plot(fillings,E_PPT_2(1,:),'m-'); hold on
-plot(fillings,E_PPT_0(1,:),'c-');
+plot(fillings,E_PPT_p(1,:),'m-'); hold on
+plot(fillings,E_PPT_n(1,:),'c-');
 
-plot(fillings,E_PPT_2(2,:),'m--');
-plot(fillings,E_PPT_0(2,:),'c--');
+plot(fillings,E_PPT_p(2,:),'m--');
+plot(fillings,E_PPT_n(2,:),'c--');
 
-% plot(fillings,E_PPT_2(3,:),'m-.');
-% plot(fillings,E_PPT_0(3,:),'c-.');
+% plot(fillings,E_PPT_p(3,:),'m-.');
+% plot(fillings,E_PPT_n(3,:),'c-.');
 
-% plot(fillings,E_PPT_2(4,:),'m:');
-% plot(fillings,E_PPT_0(4,:),'c:');
+% plot(fillings,E_PPT_p(4,:),'m:');
+% plot(fillings,E_PPT_n(4,:),'c:');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')

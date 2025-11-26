@@ -92,11 +92,11 @@ for d=1:length(fillings)
                 
                 %% Apply SSR and measure entanglement
                 counter = counter + 1;
-                [N0,N1,N2] = sym_negativity(RDM);
+                [Nn,Np,No] = ssr_negativity(RDM);
                 [~,~,~,Ntot] = negativity(RDM);
-                assert(abs(N0+N1+N2-Ntot)<1e-12);
-                E_PPT_0(counter,d,b) = log2(2*N0+1);
-                E_PPT_2(counter,d,b) = log2(2*(N0+N2)+1);
+                assert(abs(Np+No-Ntot)<1e-12);
+                E_PPT_0(counter,d,b) = log2(2*Nn+1);
+                E_PPT_2(counter,d,b) = log2(2*Np+1);
                 E_PPT(counter,d,b) = log2(2*Ntot+1);
                 [E_pSSR(counter,d,b),E_nSSR(counter,d,b)] = ssr_ree(RDM);
 

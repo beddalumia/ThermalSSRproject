@@ -83,7 +83,7 @@ for d=1:length(fillings)
             %% Apply SSR and measure entanglement
             counter = counter + 1;
             E_PPT(counter,d) = negativity(RDM);
-            [E_pSSR(counter,d),~,E_nSSR(counter,d)] = sym_negativity(RDM);
+            [E_nSSR(counter,d),E_pSSR(counter,d)] = ssr_negativity(RDM);
 
 
         end

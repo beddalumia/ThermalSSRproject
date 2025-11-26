@@ -90,11 +90,11 @@ function [E_pSSR,E_nSSR] = ssr_ree(RDM)
         end
     end
     % PPT CRITERION in each charge sector
-    [N0,~,N2] = sym_negativity(RDM);
-    if N0 < 1e-8
+    [Nn,Np] = ssr_negativity(RDM);
+    if Nn < 1e-8
         E_nSSR = 0;
     end
-    if N2 < 1e-8
+    if Np-Nn < 1e-8
         E_pSSR = E_nSSR;
     else
         E_pSSR = E_nSSR + E_pSSR;

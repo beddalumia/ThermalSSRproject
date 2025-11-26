@@ -1,12 +1,12 @@
-%% Compute imbalance-resolved negativity for a two-orbital RDM in usual EDIpack ordering
+%% Compute charge and parity superselected negativities for a two-orbital RDM in usual EDIpack ordering
 %
-%   >> [N0,N1,N2] = sym_negativity(RDMij)
+%   >> [Nnssr,Npssr,N_odd] = ssr_negativity(RDMij)
 %
 %  © Gabriele Bellomia, 2025
 
-function [N0,N1,N2] = sym_negativity(RDMij)
+function [Nnssr,Npssr,N_odd] = ssr_negativity(RDMij)
     
-% Build charge-imbalance blocks RDM_q (q: charge imbalance)
+% Build "charge-superposition blocks" (q is the fluctuating charge in off-diagonal elements)
 
     % q = 0
     RDM_0 = zeros(4,4);
@@ -16,7 +16,7 @@ function [N0,N1,N2] = sym_negativity(RDMij)
     RDM_0(4,4) = RDMij(13,13);
     
     % q = 1
-    % > unimplemented (todo...) 
+    % > unimplemented (TODO?)                                                                   ✦
     
     % q = 2
     RDM_2 = zeros(4,4);
@@ -34,7 +34,7 @@ function [N0,N1,N2] = sym_negativity(RDMij)
     RDM_0(2,3) = 0;
     
     % q = 1 [here we need to take care of twisted phases]
-    % TODO: build this directly instead of using the messy code by Frederic
+    % TODO: build this directly instead of using the full PT?                                   ✦
 
     
     % q = 2
@@ -51,7 +51,7 @@ function [N0,N1,N2] = sym_negativity(RDMij)
     N1 = NaN; % Unimplemented (TODO)
     N2 = -sum(p2(p2<0));
     
-    % > Let's leverage the additivity of negativities!
+    % > Let's leverage the additivity of negativities!                                          ✦
     [FT, BT] = partial_transpose(RDMij);
     [~, FF] = partial_transpose_frederic(RDMij);
     Ntot = 0.5*(sum(svd(FT))-1);
@@ -64,6 +64,11 @@ function [N0,N1,N2] = sym_negativity(RDMij)
        warning("You might want to investigate why bosonic and fermionic PPT coincide");
     end
     N1 = Ntot - N2 - N0;
+
+    % Return results
+    Nnssr = N0;
+    Npssr = N0 + N2;
+    N_odd = N1;
     
 end
  
