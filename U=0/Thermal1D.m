@@ -95,9 +95,9 @@ for d=1:length(fillings)
                 [N0,N1,N2] = sym_negativity(RDM);
                 [~,~,~,Ntot] = negativity(RDM);
                 assert(abs(N0+N1+N2-Ntot)<1e-12);
-                E_PPT_0(counter,d,b) = N0;%log2(2*N0+1);
-                E_PPT_2(counter,d,b) = N0+N2;%log2(2*(N0+N2)+1);
-                E_PPT(counter,d,b) = Ntot;
+                E_PPT_0(counter,d,b) = log2(2*N0+1);
+                E_PPT_2(counter,d,b) = log2(2*(N0+N2)+1);
+                E_PPT(counter,d,b) = log2(2*Ntot+1);
                 [E_pSSR(counter,d,b),E_nSSR(counter,d,b)] = ssr_ree(RDM);
 
             end
@@ -163,8 +163,9 @@ plot(temperatures,squeeze(E_nSSR(1,1,:))*log(2),'b-');
 %xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$T/t$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
+ytickformat("%.2f")
 legend(["P-SSR, NN","N-SSR, NN"],'Location','northeast')
-ylim([0,0.5]) 
+%ylim([0,0.5]) 
 
 nexttile
 
@@ -178,8 +179,9 @@ plot(temperatures,squeeze(E_PPT_0(1,1,:)),'c-'); hold on
 %xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$T/t$",'Interpreter','latex')
 ylabel("$\mathcal{N}^\mathrm{F}$",'Interpreter','latex')
+ytickformat("%.2f")
 legend(["Full, NN","P-SSR, NN","N-SSR, NN"],'Location','northeast')
-ylim([0,0.5]) 
+%ylim([0,0.5]) 
 
 figure("Name","Thermal SSR entanglement at 0.15 filling","Position",[100 100 800 400]);
 
@@ -198,7 +200,8 @@ plot(temperatures,squeeze(E_nSSR(2,2,:))*log(2),'b--');
 %xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$T/t$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
-ylim([0,0.042]) 
+ytickformat("%.3f")
+%ylim([0,0.042]) 
 legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
 
 nexttile
@@ -219,8 +222,9 @@ plot(temperatures,squeeze(E_PPT_0(2,2,:))*log(2),'c--');
 %set(gca,'Yscale','log')
 %xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$T/t$",'Interpreter','latex')
-ylabel("$\mathcal{N}^\mathrm{F}$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
+ytickformat("%.2f")
 legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
-ylim([0,0.042]) 
+%ylim([0,0.042]) 
 
 print_basis

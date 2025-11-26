@@ -51,6 +51,10 @@ On the same model, we explore the evolution of superselected negativities and re
 ![thermal_sudden_death_0.5](../pic/Thermal_0.50.svg)
 ![thermal_sudden_death_0.15](../pic/Thermal_0.15.svg)
 
+To verify that also the NNN full entanglement does not vanish at any displayed temperature, we re-plot the last figures in log-scale.
+
+![logscale_0.15](../pic/logThermal_0.15.svg)
+
 #### References
 
 [1] Ming-Chiang Chung and Ingo Peschel, [Phys. Rev. B 64, 064412 (2001)](https://doi.org/10.1103/PhysRevB.64.064412)    

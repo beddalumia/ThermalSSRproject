@@ -74,8 +74,8 @@ for i = 1:1%L
         %% Apply SSR and measure entanglement
         counter = counter + 1;
         [N0,~,N2] = sym_negativity(RDM);
-        E_PPT_0(counter,d) = N0;%log2(2*N0+1);
-        E_PPT_2(counter,d) = N0+N2;%log2(2*(N0+N2)+1);
+        E_PPT_0(counter,d) = log2(2*N0+1);
+        E_PPT_2(counter,d) = log2(2*(N0+N2)+1);
         [E_pSSR(counter,d),E_nSSR(counter,d)] = ssr_ree(RDM);
 
 
@@ -104,9 +104,10 @@ plot(fillings,E_nSSR(2,:)*log(2),'b--');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
-xlim([0,0.5]); ylim([0,0.16]);
+xlim([0,0.5]); ylim([0,0.092]);
 xlabel("$\eta$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
+ytickformat("%.2f")
 legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
 
 nexttile
@@ -125,9 +126,10 @@ plot(fillings,E_PPT_0(2,:),'c--');
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
-xlim([0,0.5]); ylim([0,0.16]);
+xlim([0,0.5]); ylim([0,0.4]);
 xlabel("$\eta$",'Interpreter','latex')
-ylabel("$\mathcal{N}$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
+ytickformat("%.2f")
 legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
 
 print_basis
