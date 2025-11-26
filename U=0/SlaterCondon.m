@@ -1,17 +1,18 @@
 function smatrix = SlaterCondon(nmodes)
-    % SLATERCONDON : Implementation of Slater-Condon rules for fermions
-    %                It pre-computes all the ❬istate| cdg_is c_js |jstate❭
-    %                matrix elements, storing them in a 4D array.
-    %                This can be used to build many-body representations of
-    %                one-body operators. NB: it assumes Nup,Ndw conservation.
-    %
-    %  >> smatrix = SlaterCondon(nmodes :: number of single-fermion modes)
-    %     smatrix :: 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
-    %     
-    % ! This can be made way faster by implementing Slater-Condon
-    %   rules in an efficient machine-tuned way, as discussed in
-    %   https://arxiv.org/abs/1311.6244 (hal-01539072)
-    %
+% SLATERCONDON : Implementation of Slater-Condon rules for fermions
+%                It pre-computes all the ❬istate| cdg_is c_js |jstate❭
+%                matrix elements, storing them in a 4D array.
+%                This can be used to build many-body representations of
+%                one-body operators. NB: it assumes Nup,Ndw conservation.
+%
+%  >> smatrix = SlaterCondon(nmodes :: number of single-fermion modes)
+%     smatrix :: 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
+%     
+% ! This can be made way faster by implementing Slater-Condon
+%   rules in an efficient machine-tuned way, as discussed in
+%   https://arxiv.org/abs/1311.6244 (hal-01539072)
+%
+% © Gabriele Bellomia, 2025
     N = 4^nmodes;
     smatrix = zeros(2*nmodes,2*nmodes,N,N);
     for istate = 0:1:N-1 % nmode-orbital states

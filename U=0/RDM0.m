@@ -16,7 +16,7 @@ function RDM = RDM0(OBDM,N,SCOT)
         assert(isequal(size(SCOT),[2*N,2*N,4^N,4^N]))
 
 
-        % Entanglement Hamiltonian (Peshel-Cheong theorem)
+        % Entanglement Hamiltonian (Peschel-Chung-Eisler theorem)
         [V,G] = eig(OBDM,"vector");
         D = log((1-G)./G);
         H = V*diag(D)*V^(-1); H = H';
