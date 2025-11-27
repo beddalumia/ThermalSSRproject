@@ -16,73 +16,76 @@ E_pSSR = zeros(4,length(fillings));
 E_PPT_n = zeros(4,length(fillings));
 E_PPT_p = zeros(4,length(fillings));
 for d=1:length(fillings)
-eta = fillings(d) 
-N = round(2*L*eta);
-occupied = zeros(2,round(N/2));
-for n = 1:round(N/2)
-    for s = 1:2
-        occupied(s,n) = sorted_k(n);
-    end
-end
-
-%% Numerical 1-body density matrix!
-OBDM = zeros(2*L,2*L); % [1,2,...,Nsites]_up[1,2,...,Nsites]_dw
-for i = 1:L
-    OBDM(i,i) = eta;
-    OBDM(i+L,i+L) = eta;
-    for j = i+1:L
-        % Numerical computation
-        % OBDM(i,j) = sum(weight.*exp(1i*(i-j)*spin_k(1,:)))/L; % up
-        % OBDM(i+L,j+L) = sum(weight.*exp(1i*(i-j)*spin_k(2,:)))/L; % dw
-        % Infinite chain limit:
-        OBDM(i,j) = sin(pi*(i-j)*eta)/(pi*(i-j)); % up
-        OBDM(i+L,j+L) = sin(pi*(i-j)*eta)/(pi*(i-j)); % dw
-        if not(i==j)
-            OBDM(j,i) = conj(OBDM(i,j)); % up
-            OBDM(j+L,i+L) = conj(OBDM(i+L,j+L)); % dw
+    eta = fillings(d) 
+    N = round(2*L*eta);
+    occupied = zeros(2,round(N/2));
+    for n = 1:round(N/2)
+        for s = 1:2
+            occupied(s,n) = sorted_k(n);
         end
     end
-end
 
-% pre-compute Slater-Condon rules for 2 orbitals
-sc_matrix = slater_condon(2); % 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
-
-%% Build two-orbital RDMs
-OBDM_ij = zeros(4,4);
-counter = 0;
-for i = 1:1%L
-    for j = [2,3,11,101]
-
-        % Restrict the one-body density matrix to two orbitals
-        % -> spin up
-        OBDM_ij(1,1) = OBDM(i,i); 
-        OBDM_ij(1,2) = OBDM(i,j); 
-        OBDM_ij(2,1) = OBDM(j,i);
-        OBDM_ij(2,2) = OBDM(j,j);
-        % -> spin down
-        OBDM_ij(3,3) = OBDM(i+L,i+L); 
-        OBDM_ij(3,4) = OBDM(i+L,j+L); 
-        OBDM_ij(4,3) = OBDM(j+L,i+L);
-        OBDM_ij(4,4) = OBDM(j+L,j+L);
-        % To check how close to 1 the eigvals are
-        %  disp(eig(OBDM_ij))
-        %  disp(sum(eig(OBDM_ij)))
-        %  disp ********************
-
-        RDM = RDM0(OBDM_ij,2,sc_matrix);
-        
-        %% Apply SSR and measure entanglement
-        counter = counter + 1;
-        [Nn,Np] = ssr_negativity(RDM);
-        E_PPT_n(counter,d) = log2(2*Nn+1);
-        E_PPT_p(counter,d) = log2(2*Np+1);
-        [E_pSSR(counter,d),E_nSSR(counter,d)] = ssr_ree(RDM);
-
-
+    %% Numerical 1-body density matrix!
+    OBDM = zeros(2*L,2*L); % [1,2,...,Nsites]_up[1,2,...,Nsites]_dw
+    for i = 1:L
+        OBDM(i,i) = eta;
+        OBDM(i+L,i+L) = eta;
+        for j = i+1:L
+            % Numerical computation
+            % OBDM(i,j) = sum(weight.*exp(1i*(i-j)*spin_k(1,:)))/L; % up
+            % OBDM(i+L,j+L) = sum(weight.*exp(1i*(i-j)*spin_k(2,:)))/L; % dw
+            % Infinite chain limit:
+            OBDM(i,j) = sin(pi*(i-j)*eta)/(pi*(i-j)); % up
+            OBDM(i+L,j+L) = sin(pi*(i-j)*eta)/(pi*(i-j)); % dw
+            if not(i==j)
+                OBDM(j,i) = conj(OBDM(i,j)); % up
+                OBDM(j+L,i+L) = conj(OBDM(i+L,j+L)); % dw
+            end
+        end
     end
-end
+
+    % pre-compute Slater-Condon rules for 2 orbitals
+    sc_matrix = slater_condon(2); % 4D array [2*nmodes,2*nmodes,4^nmodes,4^nmodes]
+
+    %% Build two-orbital RDMs
+    OBDM_ij = zeros(4,4);
+    counter = 0;
+    for i = 1:1%L
+        for j = [2,3,11,101]
+
+            % Restrict the one-body density matrix to two orbitals
+            % -> spin up
+            OBDM_ij(1,1) = OBDM(i,i); 
+            OBDM_ij(1,2) = OBDM(i,j); 
+            OBDM_ij(2,1) = OBDM(j,i);
+            OBDM_ij(2,2) = OBDM(j,j);
+            % -> spin down
+            OBDM_ij(3,3) = OBDM(i+L,i+L); 
+            OBDM_ij(3,4) = OBDM(i+L,j+L); 
+            OBDM_ij(4,3) = OBDM(j+L,i+L);
+            OBDM_ij(4,4) = OBDM(j+L,j+L);
+            % To check how close to 1 the eigvals are
+            %  disp(eig(OBDM_ij))
+            %  disp(sum(eig(OBDM_ij)))
+            %  disp ********************
+
+            RDM = RDM0(OBDM_ij,2,sc_matrix);
+            
+            %% Apply SSR and measure entanglement
+            counter = counter + 1;
+            [Nn,Np] = ssr_negativity(RDM);
+            E_PPT_n(counter,d) = log2(2*Nn+1);
+            E_PPT_p(counter,d) = log2(2*Np+1);
+            [E_pSSR(counter,d),E_nSSR(counter,d)] = ssr_ree(RDM);
+
+
+        end
+    end
 
 end
+
+writematrix(fillings','data/Test1D_fillings.csv')
+writematrix([2,3,11,101],'data/Test1D_distances.csv')
 
 figure("Position",[100 100 800 400])
 
@@ -92,15 +95,24 @@ nexttile
 
 plot(fillings,E_pSSR(1,:)*log(2),'r-'); hold on
 plot(fillings,E_nSSR(1,:)*log(2),'b-');
+writematrix(E_nSSR(1,:)','data/Test1D_REEnSSR_d1.csv')
+writematrix(E_pSSR(1,:)','data/Test1D_REEpSSR_d1.csv')
+
 
 plot(fillings,E_pSSR(2,:)*log(2),'r--');
 plot(fillings,E_nSSR(2,:)*log(2),'b--');
+writematrix(E_nSSR(2,:)','data/Test1D_REEnSSR_d2.csv')
+writematrix(E_pSSR(2,:)','data/Test1D_REEpSSR_d2.csv')
 
 % plot(fillings,E_pSSR(3,:)*log(2),'r-.');
 % plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
+writematrix(E_nSSR(3,:)','data/Test1D_REEnSSR_d3.csv')
+writematrix(E_pSSR(3,:)','data/Test1D_REEpSSR_d3.csv')
 
 % plot(fillings,E_pSSR(4,:)*log(2),'r:');
 % plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
+writematrix(E_nSSR(4,:)','data/Test1D_REEnSSR_d4.csv')
+writematrix(E_pSSR(4,:)','data/Test1D_REEpSSR_d4.csv')
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
@@ -114,15 +126,23 @@ nexttile
 
 plot(fillings,E_PPT_p(1,:),'m-'); hold on
 plot(fillings,E_PPT_n(1,:),'c-');
+writematrix(E_PPT_n(1,:)','data/Test1D_PPTnSSR_d1.csv')
+writematrix(E_PPT_p(1,:)','data/Test1D_PPTpSSR_d1.csv')
 
 plot(fillings,E_PPT_p(2,:),'m--');
 plot(fillings,E_PPT_n(2,:),'c--');
+writematrix(E_PPT_n(2,:)','data/Test1D_PPTnSSR_d2.csv')
+writematrix(E_PPT_p(2,:)','data/Test1D_PPTpSSR_d2.csv')
 
 % plot(fillings,E_PPT_p(3,:),'m-.');
 % plot(fillings,E_PPT_n(3,:),'c-.');
+writematrix(E_PPT_n(3,:)','data/Test1D_PPTnSSR_d3.csv')
+writematrix(E_PPT_p(3,:)','data/Test1D_PPTpSSR_d3.csv')
 
 % plot(fillings,E_PPT_p(4,:),'m:');
 % plot(fillings,E_PPT_n(4,:),'c:');
+writematrix(E_PPT_n(4,:)','data/Test1D_PPTnSSR_d4.csv')
+writematrix(E_PPT_p(4,:)','data/Test1D_PPTpSSR_d4.csv')
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
