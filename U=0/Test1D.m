@@ -85,7 +85,7 @@ for d=1:length(fillings)
 end
 
 writematrix(fillings','data/Test1D_fillings.csv')
-writematrix([2,3,11,101],'data/Test1D_distances.csv')
+writematrix([1,2,10,100],'data/Test1D_distances.csv')
 
 figure("Position",[100 100 800 400])
 
