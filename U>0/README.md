@@ -1,0 +1,2 @@
+Folder contains nearest neighbor Hopping Hubbard model U>0 ED Data at half filling for different geometries. This includes rings with 2-8 sites and a 2x3 and 3x3 cluster.
+Each geometry has its own folder containing for each set of U and beta values another folder U{U}_n_{n}_mu{mu}_beta{beta}_tp{tp}  that contains a .csv file with the 2 site reduced density matrix for a nearest neighbor distance rho_(1, 0).csv. The matrix basis follows arXiv:2312.14275 
