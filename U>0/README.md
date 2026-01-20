@@ -1,4 +1,7 @@
-Folder contains nearest neighbor Hopping Hubbard model U>0 ED Data at half filling for different geometries. This includes rings with 2-8 sites and a 2x3 and 3x3 cluster.    
+## Two-site entanglement 
+
+Here we include ED data for the Hubbard model at half filling (and $U>0$), for different finite-size geometries.    
+This includes rings of 2-8 sites and 2x3 and 3x3 clusters.    
 Each geometry has its own folder containing for each set of parameter values another folder `U%d_n_%.1f_mu%.1f_beta%g_tp0.0`. `U` is the Hubbard interaction strenght, in units of the
 nearest neighbor hopping $t$, `n` is the electron density, `mu` is the chemical potential $\mu/t$, `beta` is the inverse temperature $t\beta$ and `tp` is the next-nearest-neighbor hopping,
 here set to $t'=t$.     
