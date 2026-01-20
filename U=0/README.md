@@ -3,7 +3,7 @@
 #### Gaussian density matrices (for two-site subsystems)
 
 `RDM0` implements the Peschel-Chung-Eisler theorem [1,2,3] for evaluating
-the reduced density matrix of a free fermion system. It encapsulates the
+the reduced density matrix of a free fermion system. It encapsulates the 
 Wick contractions in a simple, closed one-to-one expression, relating the
 Entanglement Hamiltonian $H_\mathrm{E}$ to the one-body correlation matrix $G$: 
 
@@ -17,8 +17,8 @@ $$
 \rho = \mathrm{e}^{-\tilde{H}_\mathrm{E}}
 $$
 
-where $\tilde{H}_\mathrm{E}$ is the many-body representation of the single
-body operator $H_\mathrm{E}$. To evaluate in an efficient way this, we precompute the Slater-Condon overlaps (single-body excitations between all
+where $\tilde{H}_\mathrm{E}$ is the many-body representation of the single body operator $H_\mathrm{E}$.  
+To evaluate in an efficient way this, we precompute the Slater-Condon overlaps (single-body excitations between all
 the given Fock states) with the included `slater_condon` function.
 
 Overall, the Peschel-Chung-Eisler formulation is known to be very efficient
