@@ -11,7 +11,7 @@ $$
 H_\mathrm{E}^\intercal = \log((1-G)*G^{-1})
 $$
 
-Then the reducend density matrix $\rho$ is just given as 
+Then the reduced density matrix $\rho$ is just given as 
 
 $$
 \rho = \mathrm{e}^{-\tilde{H}_\mathrm{E}}
