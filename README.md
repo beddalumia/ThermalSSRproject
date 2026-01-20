@@ -10,8 +10,7 @@
   of a Hubbard interaction. Due to the exponential numerical effort, the
   systems are solved in the small-size limit. The ED calculations are 
   performed exploiting the recently introduced _trie-ranking_, for performance [4]. 
-  We include also custom Julia scripts to showcase the data analysis 
-  (numerical computation of reduced density matrices and their entanglement) 
+  We include also a jupyter notebook showcasing the data analysis 
   and reproduce the published plots.
 
 
