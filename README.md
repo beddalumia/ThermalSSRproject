@@ -1,4 +1,5 @@
 ## `Scripts&Data` for our project on thermal entanglement under SSR
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/beddalumia/ThermalSSRproject/main?urlpath=%2Fdoc%2Ftree%2FGenerate_plots.ipynb)
 
 - The `U=0/` directory contains MATLAB scripts computing the 2-site RDMs
   for noninteracting lattice systems, leveraging on the formalism by 
@@ -10,8 +11,8 @@
   of a Hubbard interaction. Due to the exponential numerical effort, the
   systems are solved in the small-size limit. The ED calculations are 
   performed exploiting the recently introduced _trie-ranking_, for performance [4]. 
-  We include also a jupyter notebook showcasing the data analysis 
-  and reproduce the published plots.
+  We include also a [jupyter notebook](./Generate_plots.ipynb) showcasing the data analysis 
+  and reproduce the published plots. You can also [run it interactively on binder](https://mybinder.org/v2/gh/beddalumia/ThermalSSRproject/main?urlpath=%2Fdoc%2Ftree%2FGenerate_plots.ipynb).
 
 
 [1] Ming-Chiang Chung and Ingo Peschel, [Phys. Rev. B 64, 064412 (2001)](https://doi.org/10.1103/PhysRevB.64.064412)    
