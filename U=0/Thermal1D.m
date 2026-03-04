@@ -107,7 +107,7 @@ end
 
 writematrix(fillings','data/Thermal1D_fillings.csv')
 writematrix(temperatures,'data/Thermal1D_temperatures.csv')
-writematrix([1,2],'data/Thermal1D_distances.csv')
+writematrix([1,2,3],'data/Thermal1D_distances.csv')
 
 % figure("Name","Ground state SSR entanglement vs filling","Position",[100 100 800 400]);
 
@@ -371,6 +371,11 @@ plot(temperatures,squeeze(E_nSSR(2,5,:))*log(2),'b--');
 writematrix(E_nSSR(2,5,:),'data/Thermal1D_REEnSSR_d2_f0.1.csv')
 writematrix(E_pSSR(2,5,:),'data/Thermal1D_REEpSSR_d2_f0.1.csv')
 
+plot(temperatures,squeeze(E_pSSR(3,5,:))*log(2),'r:');
+plot(temperatures,squeeze(E_nSSR(3,5,:))*log(2),'b:');
+writematrix(E_nSSR(3,5,:),'data/Thermal1D_REEnSSR_d3_f0.1.csv')
+writematrix(E_pSSR(3,5,:),'data/Thermal1D_REEpSSR_d3_f0.1.csv')
+
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
 %xlim([1e-4,0.5]); ylim([0,0.11]);
@@ -378,7 +383,7 @@ xlabel("$T/t$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
 ytickformat("%.3f")
 %ylim([0,0.042])
-legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN","P-SSR, NNNN","N-SSR, NNNN"],'Location','northeast')
 
 nexttile
 
@@ -396,9 +401,12 @@ writematrix(E_PPT(2,5,:),'data/Thermal1D_PPTfull_d2_f0.1.csv')
 writematrix(E_PPT_p(2,5,:),'data/Thermal1D_PPTpSSR_d2_f0.1.csv')
 writematrix(E_PPT_n(2,5,:),'data/Thermal1D_PPTnSSR_d2_f0.1.csv')
 
-% plot(temperatures,squeeze(E_PPT(3,2,:))*log(2),'ko'); hold on
-% plot(temperatures,squeeze(E_PPT_p(3,2,:))*log(2),'m-.');
-% plot(temperatures,squeeze(E_PPT_n(3,2,:))*log(2),'c-.');
+plot(temperatures,squeeze(E_PPT(3,5,:))*log(2),'k:'); hold on
+plot(temperatures,squeeze(E_PPT_p(3,5,:))*log(2),'m:');
+plot(temperatures,squeeze(E_PPT_n(3,5,:))*log(2),'c:');
+writematrix(E_PPT(3,5,:),'data/Thermal1D_PPTfull_d3_f0.1.csv')
+writematrix(E_PPT_p(3,5,:),'data/Thermal1D_PPTpSSR_d3_f0.1.csv')
+writematrix(E_PPT_n(3,5,:),'data/Thermal1D_PPTnSSR_d3_f0.1.csv')
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
@@ -406,7 +414,7 @@ writematrix(E_PPT_n(2,5,:),'data/Thermal1D_PPTnSSR_d2_f0.1.csv')
 xlabel("$T/t$",'Interpreter','latex')
 ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
 ytickformat("%.2f")
-legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN","Full, NNNN","P-SSR, NNNN","N-SSR, NNNN"],'Location','northeast')
 %ylim([0,0.042])
 
 print_basis
