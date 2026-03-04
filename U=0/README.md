@@ -48,23 +48,23 @@ Albeit not identical in quantitative details ---as, for instance, the position o
 
 On the same model, we explore the evolution of superselected negativities and relative entropies, to find a thermal death of entanglement, at different fillings. For the negativity only, we are able to evaluate also the full ("non-superselected") entanglement (calling the provided `negativity` function), to confirm that the thermal death can only be witnessed under parity or charge superselection rules. See the associated paper for further details.
 
-$n=0.5$
-![thermal_sudden_death_0.5](../pic/Thermal_0.50.svg)
-$n=0.25$
-![thermal_sudden_death_0.25](../pic/Thermal_0.25.svg)
-$n=0.2$
-![thermal_sudden_death_0.2](../pic/Thermal_0.20.svg)
-$n=0.15$
-![thermal_sudden_death_0.15](../pic/Thermal_0.15.svg)
-$n=0.1$
-![thermal_sudden_death_0.1](../pic/Thermal_0.10.svg)
+$\eta=0.5$     
+![thermal_sudden_death_0.5](../pic/Thermal_0.50.svg)     
+$\eta=0.25$     
+![thermal_sudden_death_0.25](../pic/Thermal_0.25.svg)     
+$\eta=0.2$     
+![thermal_sudden_death_0.2](../pic/Thermal_0.20.svg)     
+$\eta=0.15$     
+![thermal_sudden_death_0.15](../pic/Thermal_0.15.svg)     
+$\eta=0.1$     
+![thermal_sudden_death_0.1](../pic/Thermal_0.10.svg)     
 
 To verify that also the NNN full entanglement does not vanish at any displayed temperature, we re-plot some of the last figures in log-scale.
 
-$n=0.25$
-![logscale_0.25](../pic/logThermal_0.25.svg)
-$n=0.15$
-![logscale_0.15](../pic/logThermal_0.15.svg)
+$\eta=0.25$     
+![logscale_0.25](../pic/logThermal_0.25.svg)     
+$\eta=0.15$     
+![logscale_0.15](../pic/logThermal_0.15.svg)     
 
 #### Data format
 
