@@ -10,7 +10,7 @@ E = -2*t*cos(k); [E,indices] = sort(E); sorted_k = k(indices);
 
 % Filling of the band η = N/(2*L)
 global eta
-fillings = [0.5,0.15];%[5e-3,1e-2:1e-2:0.09,0.1:0.01:0.5];
+fillings = [0.5,0.25,0.2,0.15,0.1];%[5e-3,1e-2:1e-2:0.09,0.1:0.01:0.5];
 temperatures = linspace(0,4,100);
 E_nSSR = zeros(4,length(fillings),length(temperatures)); 
 E_pSSR = zeros(4,length(fillings),length(temperatures));
@@ -192,7 +192,7 @@ ytickformat("%.2f")
 legend(["Full, NN","P-SSR, NN","N-SSR, NN"],'Location','northeast')
 %ylim([0,0.5]) 
 
-figure("Name","Thermal SSR entanglement at 0.15 filling","Position",[100 100 800 400]);
+figure("Name","Thermal SSR entanglement at 0.25 filling","Position",[100 100 800 400]);
 
 tiledlayout(1, 2);
 
@@ -200,13 +200,13 @@ nexttile
 
 plot(temperatures,squeeze(E_pSSR(1,2,:))*log(2),'r-'); hold on
 plot(temperatures,squeeze(E_nSSR(1,2,:))*log(2),'b-');
-writematrix(E_nSSR(1,2,:),'data/Thermal1D_REEnSSR_d1_f0.15.csv')
+writematrix(E_nSSR(1,2,:),'data/Thermal1D_REEnSSR_d1_f0.25.csv')
 writematrix(E_pSSR(1,2,:),'data/Thermal1D_REEpSSR_d1_f0.15.csv')
 
 plot(temperatures,squeeze(E_pSSR(2,2,:))*log(2),'r--');
 plot(temperatures,squeeze(E_nSSR(2,2,:))*log(2),'b--');
-writematrix(E_nSSR(2,2,:),'data/Thermal1D_REEnSSR_d2_f0.15.csv')
-writematrix(E_pSSR(2,2,:),'data/Thermal1D_REEpSSR_d2_f0.15.csv')
+writematrix(E_nSSR(2,2,:),'data/Thermal1D_REEnSSR_d2_f0.25.csv')
+writematrix(E_pSSR(2,2,:),'data/Thermal1D_REEpSSR_d2_f0.25.csv')
 
 %set(gca,'Xscale','log')
 %set(gca,'Yscale','log')
@@ -222,16 +222,16 @@ nexttile
 plot(temperatures,squeeze(E_PPT(1,2,:))*log(2),'k-'); hold on
 plot(temperatures,squeeze(E_PPT_p(1,2,:))*log(2),'m-');
 plot(temperatures,squeeze(E_PPT_n(1,2,:))*log(2),'c-');
-writematrix(E_PPT(1,2,:),'data/Thermal1D_PPTfull_d1_f0.15.csv')
-writematrix(E_PPT_p(1,2,:),'data/Thermal1D_PPTpSSR_d1_f0.15.csv')
-writematrix(E_PPT_n(1,2,:),'data/Thermal1D_PPTnSSR_d1_f0.15.csv')
+writematrix(E_PPT(1,2,:),'data/Thermal1D_PPTfull_d1_f0.25.csv')
+writematrix(E_PPT_p(1,2,:),'data/Thermal1D_PPTpSSR_d1_f0.25.csv')
+writematrix(E_PPT_n(1,2,:),'data/Thermal1D_PPTnSSR_d1_f0.25.csv')
 
 plot(temperatures,squeeze(E_PPT(2,2,:))*log(2),'k--'); hold on
 plot(temperatures,squeeze(E_PPT_p(2,2,:))*log(2),'m--');
 plot(temperatures,squeeze(E_PPT_n(2,2,:))*log(2),'c--');
-writematrix(E_PPT(2,2,:),'data/Thermal1D_PPTfull_d2_f0.15.csv')
-writematrix(E_PPT_p(2,2,:),'data/Thermal1D_PPTpSSR_d2_f0.15.csv')
-writematrix(E_PPT_n(2,2,:),'data/Thermal1D_PPTnSSR_d2_f0.15.csv')
+writematrix(E_PPT(2,2,:),'data/Thermal1D_PPTfull_d2_f0.25.csv')
+writematrix(E_PPT_p(2,2,:),'data/Thermal1D_PPTpSSR_d2_f0.25.csv')
+writematrix(E_PPT_n(2,2,:),'data/Thermal1D_PPTnSSR_d2_f0.25.csv')
 
 % plot(temperatures,squeeze(E_PPT(3,2,:))*log(2),'ko'); hold on
 % plot(temperatures,squeeze(E_PPT_p(3,2,:))*log(2),'m-.');
@@ -245,5 +245,168 @@ ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
 ytickformat("%.2f")
 legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
 %ylim([0,0.042]) 
+
+figure("Name","Thermal SSR entanglement at 0.2 filling","Position",[100 100 800 400]);
+
+tiledlayout(1, 2);
+
+nexttile
+
+plot(temperatures,squeeze(E_pSSR(1,3,:))*log(2),'r-'); hold on
+plot(temperatures,squeeze(E_nSSR(1,3,:))*log(2),'b-');
+writematrix(E_nSSR(1,3,:),'data/Thermal1D_REEnSSR_d1_f0.2.csv')
+writematrix(E_pSSR(1,3,:),'data/Thermal1D_REEpSSR_d1_f0.2.csv')
+
+plot(temperatures,squeeze(E_pSSR(2,3,:))*log(2),'r--');
+plot(temperatures,squeeze(E_nSSR(2,3,:))*log(2),'b--');
+writematrix(E_nSSR(2,3,:),'data/Thermal1D_REEnSSR_d2_f0.2.csv')
+writematrix(E_pSSR(2,3,:),'data/Thermal1D_REEpSSR_d2_f0.2.csv')
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\mathcal{E}$",'Interpreter','latex')
+ytickformat("%.3f")
+%ylim([0,0.042])
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+
+nexttile
+
+plot(temperatures,squeeze(E_PPT(1,3,:))*log(2),'k-'); hold on
+plot(temperatures,squeeze(E_PPT_p(1,3,:))*log(2),'m-');
+plot(temperatures,squeeze(E_PPT_n(1,3,:))*log(2),'c-');
+writematrix(E_PPT(1,3,:),'data/Thermal1D_PPTfull_d1_f0.2.csv')
+writematrix(E_PPT_p(1,3,:),'data/Thermal1D_PPTpSSR_d1_f0.2.csv')
+writematrix(E_PPT_n(1,3,:),'data/Thermal1D_PPTnSSR_d1_f0.2.csv')
+
+plot(temperatures,squeeze(E_PPT(2,3,:))*log(2),'k--'); hold on
+plot(temperatures,squeeze(E_PPT_p(2,3,:))*log(2),'m--');
+plot(temperatures,squeeze(E_PPT_n(2,3,:))*log(2),'c--');
+writematrix(E_PPT(2,3,:),'data/Thermal1D_PPTfull_d2_f0.2.csv')
+writematrix(E_PPT_p(2,3,:),'data/Thermal1D_PPTpSSR_d2_f0.2.csv')
+writematrix(E_PPT_n(2,3,:),'data/Thermal1D_PPTnSSR_d2_f0.2.csv')
+
+% plot(temperatures,squeeze(E_PPT(3,2,:))*log(2),'ko'); hold on
+% plot(temperatures,squeeze(E_PPT_p(3,2,:))*log(2),'m-.');
+% plot(temperatures,squeeze(E_PPT_n(3,2,:))*log(2),'c-.');
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
+ytickformat("%.2f")
+legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+%ylim([0,0.042])
+
+
+figure("Name","Thermal SSR entanglement at 0.15 filling","Position",[100 100 800 400]);
+
+tiledlayout(1, 2);
+
+nexttile
+
+plot(temperatures,squeeze(E_pSSR(1,4,:))*log(2),'r-'); hold on
+plot(temperatures,squeeze(E_nSSR(1,4,:))*log(2),'b-');
+writematrix(E_nSSR(1,4,:),'data/Thermal1D_REEnSSR_d1_f0.15.csv')
+writematrix(E_pSSR(1,4,:),'data/Thermal1D_REEpSSR_d1_f0.15.csv')
+
+plot(temperatures,squeeze(E_pSSR(2,4,:))*log(2),'r--');
+plot(temperatures,squeeze(E_nSSR(2,4,:))*log(2),'b--');
+writematrix(E_nSSR(2,4,:),'data/Thermal1D_REEnSSR_d2_f0.15.csv')
+writematrix(E_pSSR(2,4,:),'data/Thermal1D_REEpSSR_d2_f0.15.csv')
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\mathcal{E}$",'Interpreter','latex')
+ytickformat("%.3f")
+%ylim([0,0.042])
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+
+nexttile
+
+plot(temperatures,squeeze(E_PPT(1,4,:))*log(2),'k-'); hold on
+plot(temperatures,squeeze(E_PPT_p(1,4,:))*log(2),'m-');
+plot(temperatures,squeeze(E_PPT_n(1,4,:))*log(2),'c-');
+writematrix(E_PPT(1,4,:),'data/Thermal1D_PPTfull_d1_f0.15.csv')
+writematrix(E_PPT_p(1,4,:),'data/Thermal1D_PPTpSSR_d1_f0.15.csv')
+writematrix(E_PPT_n(1,4,:),'data/Thermal1D_PPTnSSR_d1_f0.15.csv')
+
+plot(temperatures,squeeze(E_PPT(2,4,:))*log(2),'k--'); hold on
+plot(temperatures,squeeze(E_PPT_p(2,4,:))*log(2),'m--');
+plot(temperatures,squeeze(E_PPT_n(2,4,:))*log(2),'c--');
+writematrix(E_PPT(2,4,:),'data/Thermal1D_PPTfull_d2_f0.15.csv')
+writematrix(E_PPT_p(2,4,:),'data/Thermal1D_PPTpSSR_d2_f0.15.csv')
+writematrix(E_PPT_n(2,4,:),'data/Thermal1D_PPTnSSR_d2_f0.15.csv')
+
+% plot(temperatures,squeeze(E_PPT(3,2,:))*log(2),'ko'); hold on
+% plot(temperatures,squeeze(E_PPT_p(3,2,:))*log(2),'m-.');
+% plot(temperatures,squeeze(E_PPT_n(3,2,:))*log(2),'c-.');
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
+ytickformat("%.2f")
+legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+%ylim([0,0.042])
+
+figure("Name","Thermal SSR entanglement at 0.1 filling","Position",[100 100 800 400]);
+
+tiledlayout(1, 2);
+
+nexttile
+
+plot(temperatures,squeeze(E_pSSR(1,5,:))*log(2),'r-'); hold on
+plot(temperatures,squeeze(E_nSSR(1,5,:))*log(2),'b-');
+writematrix(E_nSSR(1,5,:),'data/Thermal1D_REEnSSR_d1_f0.1.csv')
+writematrix(E_pSSR(1,5,:),'data/Thermal1D_REEpSSR_d1_f0.1.csv')
+
+plot(temperatures,squeeze(E_pSSR(2,5,:))*log(2),'r--');
+plot(temperatures,squeeze(E_nSSR(2,5,:))*log(2),'b--');
+writematrix(E_nSSR(2,5,:),'data/Thermal1D_REEnSSR_d2_f0.1.csv')
+writematrix(E_pSSR(2,5,:),'data/Thermal1D_REEpSSR_d2_f0.1.csv')
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\mathcal{E}$",'Interpreter','latex')
+ytickformat("%.3f")
+%ylim([0,0.042])
+legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+
+nexttile
+
+plot(temperatures,squeeze(E_PPT(1,5,:))*log(2),'k-'); hold on
+plot(temperatures,squeeze(E_PPT_p(1,5,:))*log(2),'m-');
+plot(temperatures,squeeze(E_PPT_n(1,5,:))*log(2),'c-');
+writematrix(E_PPT(1,5,:),'data/Thermal1D_PPTfull_d1_f0.1.csv')
+writematrix(E_PPT_p(1,5,:),'data/Thermal1D_PPTpSSR_d1_f0.1.csv')
+writematrix(E_PPT_n(1,5,:),'data/Thermal1D_PPTnSSR_d1_f0.1.csv')
+
+plot(temperatures,squeeze(E_PPT(2,5,:))*log(2),'k--'); hold on
+plot(temperatures,squeeze(E_PPT_p(2,5,:))*log(2),'m--');
+plot(temperatures,squeeze(E_PPT_n(2,5,:))*log(2),'c--');
+writematrix(E_PPT(2,5,:),'data/Thermal1D_PPTfull_d2_f0.1.csv')
+writematrix(E_PPT_p(2,5,:),'data/Thermal1D_PPTpSSR_d2_f0.1.csv')
+writematrix(E_PPT_n(2,5,:),'data/Thermal1D_PPTnSSR_d2_f0.1.csv')
+
+% plot(temperatures,squeeze(E_PPT(3,2,:))*log(2),'ko'); hold on
+% plot(temperatures,squeeze(E_PPT_p(3,2,:))*log(2),'m-.');
+% plot(temperatures,squeeze(E_PPT_n(3,2,:))*log(2),'c-.');
+
+%set(gca,'Xscale','log')
+%set(gca,'Yscale','log')
+%xlim([1e-4,0.5]); ylim([0,0.11]);
+xlabel("$T/t$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
+ytickformat("%.2f")
+legend(["Full, NN","P-SSR, NN","N-SSR, NN","Full, NNN","P-SSR, NNN","N-SSR, NNN"],'Location','northeast')
+%ylim([0,0.042])
 
 print_basis
