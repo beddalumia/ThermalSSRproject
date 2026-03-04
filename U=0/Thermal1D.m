@@ -4,7 +4,7 @@
 % [1] Lexin Ding et al., Quantum Science and Technology 9 (2024) 015005
 
 t = 1;   % Hopping
-L = 500; % Nsites
+L = 1000; % Nsites
 k = (1-mod(L,2)-round((L-1)/2):1:round((L-1)/2)) * 2*pi/L;
 E = -2*t*cos(k); [E,indices] = sort(E); sorted_k = k(indices);
 
