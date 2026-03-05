@@ -34,7 +34,7 @@ We provide, for benchmark, implementations of the superselected relative entropy
 
 #### Other utilities
 
-The `build_ket`, `print_basis` functions are some small utilities used by the other main scripts. `name_to_be_decided.jl` is the script handling the data to build the final published figures. 
+The `build_ket`, `print_basis` functions are some small utilities used by the other main scripts.
 
 #### Replication of known results for a 1D chain
 
@@ -42,7 +42,7 @@ The `build_ket`, `print_basis` functions are some small utilities used by the ot
 
 ![replication_of_spatial_sudden_death](../pic/GroundState.svg)
 
-Albeit not identical in quantitative details ---as, for instance, the position of the local maximum for the next-nearest-neighbor (NNN) entanglement--- the superselected negativities match exactly the critical doping for the sudden death of entanglement.
+Albeit not identical in quantitative details, the superselected negativities match exactly the critical fillings for the sudden death of entanglement.
 
 #### Thermal death of entanglement in the noninteracting chain
 
@@ -59,12 +59,18 @@ $\eta=0.15$
 $\eta=0.1$     
 ![thermal_sudden_death_0.1](../pic/Thermal_0.10.svg)     
 
-To verify that also the NNN full entanglement does not vanish at any displayed temperature, we re-plot some of the last figures in log-scale.
+To verify that also the NNN full entanglement does not vanish at any displayed temperature, we re-plot some of these figures in log-scale.
 
 $\eta=0.25$     
 ![logscale_0.25](../pic/logThermal_0.25.svg)     
+$\eta=0.2$     
+![logscale_0.20](../pic/logThermal_0.20.svg)     
 $\eta=0.15$     
 ![logscale_0.15](../pic/logThermal_0.15.svg)     
+$\eta=0.1$     
+![logscale_0.1](../pic/logThermal_0.10.svg)   
+
+Again, the quantitative details between the two measures of entanglement are significantly different, with the most striking deviations shown at the lowest filling (plateau in the REE whereas the negativities feature a maximum). Yet, the critical temperatures for the disentangling of NN and NNN sites match exactly. 
 
 #### Data format
 
