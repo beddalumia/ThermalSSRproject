@@ -4,7 +4,7 @@
 % the results with our notion of symmetry-resolved negativity :)
 
 t = 1;   % Hopping
-L = 200; % Nsites
+L = 200; % Nsites (only as the support of the 1bdm, we are using an analytical infinite chain expression)
 k = (1-mod(L,2)-round((L-1)/2):1:round((L-1)/2)) * 2*pi/L;
 E = -2*t*cos(k); [E,indices] = sort(E); sorted_k = k(indices);
 
@@ -104,23 +104,26 @@ plot(fillings,E_nSSR(2,:)*log(2),'b--');
 writematrix(E_nSSR(2,:)','data/Test1D_REEnSSR_d2.csv')
 writematrix(E_pSSR(2,:)','data/Test1D_REEpSSR_d2.csv')
 
-% plot(fillings,E_pSSR(3,:)*log(2),'r-.');
-% plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
+plot(fillings,E_pSSR(3,:)*log(2),'r-.');
+plot(fillings,E_nSSR(3,:)*log(2),'b-.'); 
 writematrix(E_nSSR(3,:)','data/Test1D_REEnSSR_d3.csv')
 writematrix(E_pSSR(3,:)','data/Test1D_REEpSSR_d3.csv')
 
-% plot(fillings,E_pSSR(4,:)*log(2),'r:');
-% plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
+plot(fillings,E_pSSR(4,:)*log(2),'r:');
+plot(fillings,E_nSSR(4,:)*log(2),'b:'); 
 writematrix(E_nSSR(4,:)','data/Test1D_REEnSSR_d4.csv')
 writematrix(E_pSSR(4,:)','data/Test1D_REEpSSR_d4.csv')
 
-%set(gca,'Xscale','log')
-%set(gca,'Yscale','log')
-xlim([0,0.5]); ylim([0,0.092]);
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+xlim([1e-4,0.5])
+xticks([1e-4,1e-3,1e-2,1e-1,0.5])
+xticklabels(["10^{-4}","10^{-3}","10^{-2}","10^{-1}","0.5"])
+ylim([1e-8,1]);
 xlabel("$\eta$",'Interpreter','latex')
 ylabel("$\mathcal{E}$",'Interpreter','latex')
 ytickformat("%.2f")
-legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
+legend(["P-SSR, d=1","N-SSR, d=1","P-SSR, d=2","N-SSR, d=2","P-SSR, d=10","N-SSR, d=10","P-SSR, d=100","N-SSR, d=100"],'Location','northwest')
 
 nexttile
 
@@ -134,22 +137,25 @@ plot(fillings,E_PPT_n(2,:),'c--');
 writematrix(E_PPT_n(2,:)','data/Test1D_PPTnSSR_d2.csv')
 writematrix(E_PPT_p(2,:)','data/Test1D_PPTpSSR_d2.csv')
 
-% plot(fillings,E_PPT_p(3,:),'m-.');
-% plot(fillings,E_PPT_n(3,:),'c-.');
+plot(fillings,E_PPT_p(3,:),'m-.');
+plot(fillings,E_PPT_n(3,:),'c-.');
 writematrix(E_PPT_n(3,:)','data/Test1D_PPTnSSR_d3.csv')
 writematrix(E_PPT_p(3,:)','data/Test1D_PPTpSSR_d3.csv')
 
-% plot(fillings,E_PPT_p(4,:),'m:');
-% plot(fillings,E_PPT_n(4,:),'c:');
+plot(fillings,E_PPT_p(4,:),'m:');
+plot(fillings,E_PPT_n(4,:),'c:');
 writematrix(E_PPT_n(4,:)','data/Test1D_PPTnSSR_d4.csv')
 writematrix(E_PPT_p(4,:)','data/Test1D_PPTpSSR_d4.csv')
 
-%set(gca,'Xscale','log')
-%set(gca,'Yscale','log')
-xlim([0,0.5]); ylim([0,0.4]);
+set(gca,'Xscale','log')
+set(gca,'Yscale','log')
+xlim([1e-4,0.5])
+xticks([1e-4,1e-3,1e-2,1e-1,0.5])
+xticklabels(["10^{-4}","10^{-3}","10^{-2}","10^{-1}","0.5"])
+ylim([1e-8,1]);
 xlabel("$\eta$",'Interpreter','latex')
 ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
 ytickformat("%.2f")
-legend(["P-SSR, NN","N-SSR, NN","P-SSR, NNN","N-SSR, NNN"],'Location','northwest')
+legend(["P-SSR, d=1","N-SSR, d=1","P-SSR, d=2","N-SSR, d=2","P-SSR, d=10","N-SSR, d=10","P-SSR, d=100","N-SSR, d=100"],'Location','northwest')
 
 print_basis

@@ -4,7 +4,7 @@
 % [1] Lexin Ding et al., Quantum Science and Technology 9 (2024) 015005
 
 t = 1;   % Hopping
-L = 1000; % Nsites
+L = 1000; % Nsites (use 200 for a quicker but reliable check)
 k = (1-mod(L,2)-round((L-1)/2):1:round((L-1)/2)) * 2*pi/L;
 E = -2*t*cos(k); [E,indices] = sort(E); sorted_k = k(indices);
 
@@ -187,7 +187,7 @@ writematrix(E_PPT_n(1,1,:),'data/Thermal1D_PPTnSSR_d1_f0.5.csv')
 %set(gca,'Yscale','log')
 %xlim([1e-4,0.5]); ylim([0,0.11]);
 xlabel("$T/t$",'Interpreter','latex')
-ylabel("$\mathcal{N}^\mathrm{F}$",'Interpreter','latex')
+ylabel("$\log_2(2\mathcal{N}^\mathrm{F}+1)$",'Interpreter','latex')
 ytickformat("%.2f")
 legend(["Full, NN","P-SSR, NN","N-SSR, NN"],'Location','northeast')
 %ylim([0,0.5]) 
