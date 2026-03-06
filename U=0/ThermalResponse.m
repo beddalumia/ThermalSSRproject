@@ -6,10 +6,10 @@ k = 1;             % Boltzmann constant (8.617e-5 eV/K)
 t = 1;             % NN hopping amplitude (our unit of energy)
 T = 2;             % Temperature (units of the hopping)
 mu = 0;            % Chemical potential (units of the hopping)
-lattice="2D-square";% "1D-chain" or "Bethe" or "2D-square"
+lattice="Bethe";% "1D-chain" or "Bethe" or "2D-square"
 
 % Single-shot computation to check the dynamical structure of chi
-[chi_real, chi_imag, omega] = response(t, T, mu,lattice);
+[chi_real, chi_imag, omega] = response(t, T, mu, lattice);
 figure;
 plot(omega, chi_real, 'b-', 'LineWidth', 2); hold on;
 plot(omega, chi_imag, 'r-', 'LineWidth', 2);
@@ -19,6 +19,31 @@ ylabel('\chi_{loc}(\omega)', 'FontSize', 12);
 title(sprintf('Local dynamical response at $T=%g$, $\\mu=%g$ [%s]',...
     T,mu,lattice), 'Interpreter', 'latex');
 legend('\chi''', '\chi''''', 'FontSize', 12);
+
+% Loop over T and \mu values to see if something changes at small fillings
+temperatures = [0.1:0.05:5]*t;
+chemicalpots = [-4:0.05:0]*t;
+equal_time_absorption = zeros(length(temperatures),length(chemicalpots));
+for iT = 1:length(temperatures)
+    T = temperatures(iT);
+    for iN = 1:length(chemicalpots)
+        mu = chemicalpots(iN); 
+        fprintf('T = %g\n',T)
+        fprintf('mu = %g\n',mu)
+        [chi_real, chi_imag, omega] = response(t, T, mu, lattice);
+        equal_time_absorption(iT,iN) = trapz(omega,chi_imag);
+    end
+end
+
+% Contour plot
+figure
+imagesc(temperatures,chemicalpots,equal_time_absorption)
+set(gca,'YDir','normal')
+colorbar
+xlabel('$T$','Interpreter','latex')
+ylabel('$\mu$','Interpreter','latex')
+title(sprintf("Lattice: %s",lattice))
+
 
 function [chi_real,chi_imag,omega] = response(hopping,temperature,chempot,l)
 
@@ -40,8 +65,8 @@ function [chi_real,chi_imag,omega] = response(hopping,temperature,chempot,l)
     switch(l)
     
         case("Bethe")
-        % Dummy LDOS: A simple semi-circle band of width 2
-        rho = real(sqrt(2 - E.^2)) / (2*pi); 
+        % Dummy LDOS: A simple semi-circle band of width 4t
+        rho = real(sqrt(4 - E.^2)) / (2*pi); 
     
         case("1D-chain")
         % 1D chain LDOS (analytical, to take good care of divergences)
